@@ -68,4 +68,13 @@ services:
       - phpmarine-network
     restart: unless-stopped
 
-   
+  composer:
+    build:
+      context: .
+      dockerfile: PHP.Dockerfile
+    working_dir: /app/default
+    entrypoint: /usr/bin/composer
+    volumes:
+      - ./app:/app
+    profiles:
+      - composer
