@@ -78,3 +78,16 @@ services:
       - ./app:/app
     profiles:
       - composer
+
+  phpunit:
+    build:
+      context: .
+      dockerfile: PHP.Dockerfile
+    working_dir: /app/default
+    entrypoint: 'php vendor/bin/phpunit'
+    volumes:
+      - ./app:/app
+    profiles:
+      - phpunit
+    environment:
+      - XDEBUG_MODE=coverage
