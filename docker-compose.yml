@@ -32,3 +32,20 @@ services:
     environment:
       - XDEBUG_MODE=develop
     restart: unless-stopped
+
+  mysql:
+    image: mariadb:10.11.13
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    networks:
+      - phpmarine-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER}", "-p${MYSQL_PASSWORD}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
