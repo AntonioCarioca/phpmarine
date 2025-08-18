@@ -49,3 +49,13 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  adminer:
+    image: adminer:5.3.0
+  environment:
+    ADMINER_DEFAULT_SERVER: mysql
+  restart: unless-stopped
+  depends_on:
+    - mysql
+  networks:
+    - phpmarine-network
