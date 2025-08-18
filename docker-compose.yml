@@ -91,3 +91,10 @@ services:
       - phpunit
     environment:
       - XDEBUG_MODE=coverage
+
+networks:
+  phpmarine-network:
+    driver: bridge
+
+volumes:
+  mysqldata: {}
