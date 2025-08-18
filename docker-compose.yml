@@ -59,3 +59,13 @@ services:
     - mysql
   networks:
     - phpmarine-network
+
+  mailpit:
+    image: axllent/mailpit:v1.27.4
+    ports:
+      - "1025:1025"
+    networks:
+      - phpmarine-network
+    restart: unless-stopped
+
+   
