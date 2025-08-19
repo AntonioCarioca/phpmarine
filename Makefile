@@ -55,13 +55,20 @@ shell: ## Accesses the PHP container's terminal (bash)
 	@echo "💻 Accessing the PHP container terminal..."
 	$(COMPOSE) exec $(PHP_SERVICE) bash
 
-composer: ## Run Composer. Specify the directory with DIR. Ex: make composer ARGS="install" DIR="blog"
+composer: ## Run Composer. Specify the directory with DIR. Ex: make composer ARGS='install" DIR="blog'
 	@echo "📦 Running Composer in /app/$(DIR): $(ARGS)"
 	WORK_DIR=$(DIR) $(COMPOSE) --profile composer run --rm composer $(ARGS)
 
 test: ## Run PHPUnit. Specify the directory with DIR. Ex: make test DIR="blog"
 	@echo "🧪 Running tests in /app/$(DIR): $(ARGS)"
 	WORK_DIR=$(DIR) $(COMPOSE) --profile phpunit run --rm phpunit $(ARGS)
+
+certs: ## Generate local SSL certificates in the certs/ folder using mkcert
+	@echo "🔐 Generating SSL certificates for the local environment..."
+	# Ensures that the certs folder exists before Docker tries to mount it
+	@mkdir -p certs
+	$(COMPOSE) --profile tools run --rm mkcert
+	@echo "Certificates successfully generated in certs/"
 
 # --- Database Management Commands ---
 
