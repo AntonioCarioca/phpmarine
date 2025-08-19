@@ -72,7 +72,7 @@ services:
     build:
       context: .
       dockerfile: PHP.Dockerfile
-    working_dir: /app/default
+    working_dir: /app/${WORK_DIR:-default}
     entrypoint: /usr/bin/composer
     volumes:
       - ./app:/app
@@ -83,7 +83,7 @@ services:
     build:
       context: .
       dockerfile: PHP.Dockerfile
-    working_dir: /app/default
+    working_dir: /app/${WORK_DIR:-default}
     entrypoint: 'php vendor/bin/phpunit'
     volumes:
       - ./app:/app
