@@ -1,0 +1,10 @@
+# Arquivo de variáveis de ambiente com segredos
+.env
+
+# Arquivos comuns de sistema operacional, IDEs e dependências
+.DS_Store
+Thumbs.db
+/vendor/
+/node_modules/
+.idea/
+.vscode/
