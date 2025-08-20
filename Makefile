@@ -6,7 +6,7 @@
 .SILENT:
 
 # Set all targets to “phony” so that Make doesn't confuse them with file names
-.PHONY: help up down restart build status logs shell composer test db-shell db-export db-import clean
+.PHONY: help up down restart build status logs shell composer test db-shell db-export db-import clean certs
 
 # Standard target: displays help
 default: help
@@ -67,7 +67,10 @@ certs: ## Generate local SSL certificates in the certs/ folder using mkcert
 	@echo "🔐 Generating SSL certificates for the local environment..."
 	# Ensures that the certs folder exists before Docker tries to mount it
 	@mkdir -p certs
-	$(COMPOSE) --profile tools run --rm mkcert
+	@sudo apt update
+	@sudo apt install libnss3-tools
+	@sudo apt install mkcert
+	@mkcert -install && mkcert -key-file certs/key.pem -cert-file certs/cert.pem pm.localhost *.pm.localhost localhost 127.0.0.1 ::1
 	@echo "Certificates successfully generated in certs/"
 
 # --- Database Management Commands ---
