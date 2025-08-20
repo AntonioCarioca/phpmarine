@@ -92,17 +92,6 @@ services:
     environment:
       - XDEBUG_MODE=coverage
 
-  mkcert:
-    image: frapsoft/mkcert
-    volumes:
-      - ./certs:/certs
-    command: >
-      sh -c "mkcert -install &&
-             mkcert -key-file /certs/key.pem -cert-file /certs/cert.pem
-             pm.localhost *.pm.localhost mail.pm.localhost adminer.pm.localhost localhost 127.0.0.1 ::1"
-    profiles: 
-      - tools
-
 networks:
   phpmarine-network:
     driver: bridge
